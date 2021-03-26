@@ -1,18 +1,20 @@
-# Game Workstore Protocol UI
+# Game Workstore Protocol Audio
 
-Protocol UI is a small framework to work with multiple screens on a easy and organized way and manage layered panels on Unity.
+Protocol Audio is a small framework allow easy usage of audio on the game. It completely separates audio data from the objects and let the Sound Designer implement them without necessity of a programmer.
 Use it your own risk!
 
 # How to install
 
 At package.json, add these lines of code:
-> "com.gameworkstore.protocolui": "https://github.com/GameWorkstore/protocolui.git"
-
-> "com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git"
+```json
+"com.gameworkstore.protocolaudio": "https://github.com/GameWorkstore/protocolaudio.git"
+"com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git"
+```
 
 And wait for unity to download and compile the package.
 
-for update package for a newer version, click in [Help->PackageUpdate->GameWorkstore.ProtocolUI]
+for update package for a newer version, install UpmGitExtension and update on [ Window > Package Manager ]!
+> https://github.com/mob-sakai/UpmGitExtension
 
 # Contributions
 
