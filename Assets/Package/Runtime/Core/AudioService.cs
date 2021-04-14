@@ -28,27 +28,6 @@ namespace GameWorkstore.ProtocolAudio
             }
         }
 
-        internal AudioSource Play2DRandom(int audioNameHash)
-        {
-            if (_audioDictionary.ContainsKey(audioNameHash))
-                return _audioDictionary[audioNameHash].Play2DRandom();
-            return null;
-        }
-
-        internal AudioSource Play2D(int audioNameHash)
-        {
-            if (_audioDictionary.ContainsKey(audioNameHash))
-                return _audioDictionary[audioNameHash].Play2D();
-            return null;
-        }
-
-        internal AudioSource Play3D(int audioNameHash, Vector3 position)
-        {
-            if (_audioDictionary.ContainsKey(audioNameHash))
-                return _audioDictionary[audioNameHash].Play3D(position);
-            return null;
-        }
-
         internal void UnregisterAudioPack(AudioPack audioPack)
         {
             int hash = Animator.StringToHash(audioPack.name);
@@ -61,6 +40,20 @@ namespace GameWorkstore.ProtocolAudio
         internal void SetCurrentMaster(AudioMixer master)
         {
             _master = master;
+        }
+
+        public AudioSource Play2D(int audioNameHash)
+        {
+            if (_audioDictionary.TryGetValue(audioNameHash, out AudioPack pack))
+                return pack.Play2D();
+            return null;
+        }
+
+        public AudioSource Play3D(int audioNameHash, Vector3 position)
+        {
+            if (_audioDictionary.TryGetValue(audioNameHash, out AudioPack pack))
+                return pack.Play3D(position);
+            return null;
         }
 
         public AudioMixer GetCurrentMaster()

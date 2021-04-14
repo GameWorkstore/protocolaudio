@@ -1,6 +1,6 @@
 {
   "name": "com.gameworkstore.protocolaudio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "GameWorkstore Protocol Audio",
   "description": "Protocol Audio is a small framework allow easy usage of audio on the game. It completely separates audio data from the objects and let the Sound Designer implement them without necessity of a programmer.",
   "unity": "2020.1",

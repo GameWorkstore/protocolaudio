@@ -7,14 +7,27 @@ namespace GameWorkstore.ProtocolAudio
     public class AudioPack : MonoBehaviour
     {
         public AudioSource[] Sources;
+        [Tooltip("Should play AudioSources Randomly or not.")]
+        public bool Random;
         public int AdditionalVoices = 0;
         private int SourceTracker;
+
+        public float OriginalVolume { get; private set; }
 
         private void Awake()
         {
             ServiceProvider.GetService<AudioService>().RegisterAudioPack(this);
 
             int originals = Sources.Length;
+
+            //clear audios
+            for(int i = 0; i < originals; i++)
+            {
+                Sources[i].playOnAwake = false;
+                Sources[i].Stop();
+                OriginalVolume = Sources[i].volume;
+            }
+
             Array.Resize(ref Sources, Sources.Length + AdditionalVoices);
             for(int i = originals; i < Sources.Length; i++)
             {
@@ -27,27 +40,31 @@ namespace GameWorkstore.ProtocolAudio
             ServiceProvider.GetService<AudioService>().UnregisterAudioPack(this);
         }
 
-        internal AudioSource Play2DRandom()
+        public AudioSource Play2D()
         {
-            SourceTracker = UnityEngine.Random.Range(0, Sources.Length);
+            if (Random)
+            {
+                SourceTracker = UnityEngine.Random.Range(0, Sources.Length);
+            }
+            else
+            {
+                SourceTracker = ++SourceTracker % Sources.Length;
+            }
             Sources[SourceTracker].spatialBlend = 0;
             Sources[SourceTracker].Play();
             return Sources[SourceTracker];
         }
 
-        internal AudioSource Play2D()
+        public AudioSource Play3D(Vector3 position)
         {
-            SourceTracker = ++SourceTracker % Sources.Length;
-            //int rng = Random.Range(0, Sources.Length);
-            Sources[SourceTracker].spatialBlend = 0;
-            Sources[SourceTracker].Play();
-            return Sources[SourceTracker];
-        }
-
-        internal AudioSource Play3D(Vector3 position)
-        {
-            SourceTracker = ++SourceTracker % Sources.Length;
-            //int rng = Random.Range(0, Sources.Length);
+            if (Random)
+            {
+                SourceTracker = UnityEngine.Random.Range(0, Sources.Length);
+            }
+            else
+            {
+                SourceTracker = ++SourceTracker % Sources.Length;
+            }
             Sources[SourceTracker].transform.position = position;
             Sources[SourceTracker].spatialBlend = 1;
             Sources[SourceTracker].Play();

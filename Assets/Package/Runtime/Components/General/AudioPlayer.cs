@@ -19,10 +19,5 @@ namespace GameWorkstore.ProtocolAudio
         {
             _audioService.Play2D(_audioNameHash);
         }
-
-        public void Play2DRandom()
-        {
-            _audioService.Play2DRandom(_audioNameHash);
-        }
     }
 }
