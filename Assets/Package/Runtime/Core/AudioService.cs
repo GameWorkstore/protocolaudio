@@ -55,6 +55,12 @@ namespace GameWorkstore.ProtocolAudio
             return null;
         }
 
+        public void Stop(int audioNameHash)
+        {
+            if (!_audioDictionary.TryGetValue(audioNameHash, out AudioPack pack)) return;
+            pack.Stop();
+        }
+
         public AudioMixer GetCurrentMaster()
         {
             return _master;

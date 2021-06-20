@@ -72,5 +72,13 @@ namespace GameWorkstore.ProtocolAudio
             Sources[SourceTracker].Play();
             return Sources[SourceTracker];
         }
+
+        public void Stop()
+        {
+            foreach(var source in Sources)
+            {
+                if (source.isPlaying) source.Stop();
+            }
+        }
     }
 }
