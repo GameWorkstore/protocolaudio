@@ -6,11 +6,12 @@ namespace GameWorkstore.ProtocolAudio
 {
     public class AudioPack : MonoBehaviour
     {
-        public AudioSource[] Sources;
         [Tooltip("Should play AudioSources Randomly or not.")]
         public bool Random;
         public int AdditionalVoices = 0;
+
         private int SourceTracker;
+        private AudioSource[] Sources;
 
         public float OriginalVolume { get; private set; }
 
@@ -18,6 +19,7 @@ namespace GameWorkstore.ProtocolAudio
         {
             ServiceProvider.GetService<AudioService>().RegisterAudioPack(this);
 
+            Sources = GetComponentsInChildren<AudioSource>();
             int originals = Sources.Length;
 
             //clear audios

@@ -730,11 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc4a167d2a554550b0f4db1f487bce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sources:
-  - {fileID: 303650433}
-  - {fileID: 1555719016}
-  - {fileID: 372851931}
-  Random: 0
+  Random: 1
   AdditionalVoices: 0
 --- !u!1 &1319432878
 GameObject:
@@ -1119,6 +1115,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
