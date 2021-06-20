@@ -1,0 +1,17 @@
+{
+  "name": "com.gameworkstore.protocolaudio",
+  "version": "1.0.3",
+  "displayName": "GameWorkstore Protocol Audio",
+  "description": "Protocol Audio is a small framework allow easy usage of audio on the game. It completely separates audio data from the objects and let the Sound Designer implement them without necessity of a programmer.",
+  "unity": "2020.1",
+  "icon": ".icon.png",
+  "keywords": ["audio", "sound", "music", "framework", "manager", "management"],
+  "author": {
+    "name": "Game Workstore",
+    "email": "contact@gameworkstore.com",
+    "url": "https://gameworkstore.com"
+  },
+  "dependencies": {
+    "com.gameworkstore.patterns": "1.0.7"
+  }
+}
