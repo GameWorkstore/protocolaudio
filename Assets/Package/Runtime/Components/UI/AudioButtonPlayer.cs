@@ -1,10 +1,11 @@
-﻿using GameWorkstore.Patterns;
+﻿using System;
+using GameWorkstore.Patterns;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace GameWorkstore.ProtocolAudio
 {
-    public class AudioButton : MonoBehaviour, ISubmitHandler, ISelectHandler
+    public class AudioButtonPlayer : MonoBehaviour, IPointerClickHandler, ISubmitHandler, ISelectHandler
     {
         public string AudioNameSelected;
         public string AudioNameClicked;
@@ -23,6 +24,11 @@ namespace GameWorkstore.ProtocolAudio
         void ISelectHandler.OnSelect(BaseEventData eventData)
         {
             _audioService.Play2D(_audioNameSelectedHash);
+        }
+
+        void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
+        {
+            _audioService.Play2D(_audioNameClickedHash);
         }
 
         void ISubmitHandler.OnSubmit(BaseEventData eventData)
