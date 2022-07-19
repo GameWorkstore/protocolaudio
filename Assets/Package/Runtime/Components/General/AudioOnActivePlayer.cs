@@ -4,12 +4,12 @@
     {
         private void OnEnable()
         {
-            _audioService.Play2D(_audioNameHash);
+            _audioService.Play2D(AudioName);
         }
 
         private void OnDisable()
         {
-            _audioService.Stop(_audioNameHash);
+            _audioService.Stop(AudioName);
         }
     }
 }

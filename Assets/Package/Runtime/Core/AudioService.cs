@@ -20,7 +20,7 @@ namespace GameWorkstore.ProtocolAudio
 
         internal void RegisterAudioPack(AudioPack audioPack)
         {
-            int hash = Animator.StringToHash(audioPack.name);
+            var hash = audioPack.AudioName.Hash;
             if (!_audioDictionary.ContainsKey(hash))
             {
                 _audioDictionary.Add(hash, audioPack);
@@ -29,11 +29,16 @@ namespace GameWorkstore.ProtocolAudio
 
         internal void UnregisterAudioPack(AudioPack audioPack)
         {
-            int hash = Animator.StringToHash(audioPack.name);
+            var hash = audioPack.AudioName.Hash;
             if (_audioDictionary.ContainsKey(hash))
             {
                 _audioDictionary.Remove(hash);
             }
+        }
+
+        public AudioMixer GetCurrentMaster()
+        {
+            return _master;
         }
 
         internal void SetCurrentMaster(AudioMixer master)
@@ -41,29 +46,24 @@ namespace GameWorkstore.ProtocolAudio
             _master = master;
         }
 
-        public AudioSource Play2D(int audioNameHash)
+        public AudioSource Play2D(AudioName audioName)
         {
-            if (_audioDictionary.TryGetValue(audioNameHash, out AudioPack pack))
+            if (_audioDictionary.TryGetValue(audioName.Hash, out AudioPack pack))
                 return pack.Play2D();
             return null;
         }
 
-        public AudioSource Play3D(int audioNameHash, Vector3 position)
+        public AudioSource Play3D(AudioName audioName, Vector3 position)
         {
-            if (_audioDictionary.TryGetValue(audioNameHash, out AudioPack pack))
+            if (_audioDictionary.TryGetValue(audioName.Hash, out AudioPack pack))
                 return pack.Play3D(position);
             return null;
         }
 
-        public void Stop(int audioNameHash)
+        public void Stop(AudioName audioName)
         {
-            if (!_audioDictionary.TryGetValue(audioNameHash, out AudioPack pack)) return;
+            if (!_audioDictionary.TryGetValue(audioName.Hash, out AudioPack pack)) return;
             pack.Stop();
-        }
-
-        public AudioMixer GetCurrentMaster()
-        {
-            return _master;
         }
     }
 }

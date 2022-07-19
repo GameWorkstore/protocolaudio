@@ -5,8 +5,7 @@ namespace GameWorkstore.ProtocolAudio
 {
     public class AudioFootstepPlayer : MonoBehaviour
     {
-        public string AudioName;
-        protected int _audioNameHash;
+        public AudioName AudioName;
         protected AudioService _audioService;
         public bool Bypass;
         public float MinimumAmountOfTimeBetweenCalls = 0.1f;
@@ -20,7 +19,6 @@ namespace GameWorkstore.ProtocolAudio
 
         public void Preprocess()
         {
-            _audioNameHash = Animator.StringToHash(AudioName);
             _audioService = ServiceProvider.GetService<AudioService>();
         }
 
@@ -29,7 +27,7 @@ namespace GameWorkstore.ProtocolAudio
             if (Bypass) return;
             if (Time.realtimeSinceStartup < _lastCall + MinimumAmountOfTimeBetweenCalls) return;
             _lastCall = Time.realtimeSinceStartup;
-            _audioService.Play3D(_audioNameHash, transform.position);
+            _audioService.Play3D(AudioName, transform.position);
         }
     }
 }

@@ -7,33 +7,29 @@ namespace GameWorkstore.ProtocolAudio
 {
     public class AudioButtonPlayer : MonoBehaviour, IPointerClickHandler, ISubmitHandler, ISelectHandler
     {
-        public string AudioNameSelected;
-        public string AudioNameClicked;
+        public AudioName AudioNameSelected;
+        public AudioName AudioNameClicked;
 
-        private int _audioNameSelectedHash;
-        private int _audioNameClickedHash;
         private AudioService _audioService;
 
         private void Awake()
         {
-            _audioNameSelectedHash = Animator.StringToHash(AudioNameSelected);
-            _audioNameClickedHash = Animator.StringToHash(AudioNameClicked);
             _audioService = ServiceProvider.GetService<AudioService>();
         }
 
         void ISelectHandler.OnSelect(BaseEventData eventData)
         {
-            _audioService.Play2D(_audioNameSelectedHash);
+            _audioService.Play2D(AudioNameSelected);
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            _audioService.Play2D(_audioNameClickedHash);
+            _audioService.Play2D(AudioNameClicked);
         }
 
         void ISubmitHandler.OnSubmit(BaseEventData eventData)
         {
-            _audioService.Play2D(_audioNameClickedHash);
+            _audioService.Play2D(AudioNameClicked);
         }
     }
 }

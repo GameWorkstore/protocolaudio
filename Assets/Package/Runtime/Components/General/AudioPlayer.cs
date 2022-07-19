@@ -5,19 +5,17 @@ namespace GameWorkstore.ProtocolAudio
 {
     public class AudioPlayer : MonoBehaviour
     {
-        public string AudioName;
-        protected int _audioNameHash;
+        public AudioName AudioName;
         protected AudioService _audioService;
 
         private void Awake()
         {
-            _audioNameHash = Animator.StringToHash(AudioName);
             _audioService = ServiceProvider.GetService<AudioService>();
         }
 
         public void Play2D()
         {
-            _audioService.Play2D(_audioNameHash);
+            _audioService.Play2D(AudioName);
         }
     }
 }

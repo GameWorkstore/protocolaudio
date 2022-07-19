@@ -6,6 +6,8 @@ namespace GameWorkstore.ProtocolAudio
 {
     public class AudioPack : MonoBehaviour
     {
+        public AudioName AudioName;
+
         [Tooltip("Should play AudioSources Randomly or not.")]
         public bool Random;
         public int AdditionalVoices = 0;
@@ -78,6 +80,14 @@ namespace GameWorkstore.ProtocolAudio
             foreach(var source in Sources)
             {
                 if (source.isPlaying) source.Stop();
+            }
+        }
+
+        public void OnValidate()
+        {
+            if(AudioName != null)
+            {
+                name = AudioName.name;
             }
         }
     }

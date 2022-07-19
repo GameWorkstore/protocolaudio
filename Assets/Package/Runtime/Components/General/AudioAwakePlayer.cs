@@ -4,7 +4,7 @@
     {
         private void Start()
         {
-            _audioService.Play2D(_audioNameHash);
+            _audioService.Play2D(AudioName);
         }
     }
 }

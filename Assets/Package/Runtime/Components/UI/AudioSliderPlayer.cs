@@ -7,17 +7,13 @@ namespace GameWorkstore.ProtocolAudio
 {
     public class AudioSlider : MonoBehaviour, ISelectHandler
     {
-        public string AudioNameSelected;
-        public string AudioNameValueChanged;
+        public AudioName AudioNameSelected;
+        public AudioName AudioNameValueChanged;
 
-        private int _audioNameSelectedHash;
-        private int _audioNameValueChangedHash;
         private AudioService _audioService;
 
         private void Awake()
         {
-            _audioNameSelectedHash = Animator.StringToHash(AudioNameSelected);
-            _audioNameValueChangedHash = Animator.StringToHash(AudioNameValueChanged);
             _audioService = ServiceProvider.GetService<AudioService>();
 
             GetComponent<Slider>().onValueChanged.AddListener(OnValueChanged);
@@ -25,12 +21,12 @@ namespace GameWorkstore.ProtocolAudio
 
         private void OnValueChanged(float value)
         {
-            _audioService.Play2D(_audioNameValueChangedHash);
+            _audioService.Play2D(AudioNameValueChanged);
         }
 
         void ISelectHandler.OnSelect(BaseEventData eventData)
         {
-            _audioService.Play2D(_audioNameSelectedHash);
+            _audioService.Play2D(AudioNameSelected);
         }
     }
 }
