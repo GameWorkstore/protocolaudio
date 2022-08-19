@@ -21,12 +21,12 @@ namespace GameWorkstore.ProtocolAudio
 
         private void OnValueChanged(float value)
         {
-            _audioService.Play2D(AudioNameValueChanged);
+            if(AudioNameValueChanged) _audioService.Play2D(AudioNameValueChanged);
         }
 
         void ISelectHandler.OnSelect(BaseEventData eventData)
         {
-            _audioService.Play2D(AudioNameSelected);
+            if(AudioNameSelected) _audioService.Play2D(AudioNameSelected);
         }
     }
 }

@@ -1012,6 +1012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioNameSelected: {fileID: 11400000, guid: 5f4e97ca41e33dd4dbbbbfd090771b71, type: 2}
   AudioNameClicked: {fileID: 11400000, guid: 5f4e97ca41e33dd4dbbbbfd090771b71, type: 2}
+  AudioNamePressed: {fileID: 0}
 --- !u!114 &1548104615
 MonoBehaviour:
   m_ObjectHideFlags: 0
