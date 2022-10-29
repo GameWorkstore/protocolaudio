@@ -7,7 +7,7 @@ Use it your own risk!
 
 At package.json, add these lines of code:
 ```json
-"com.gameworkstore.protocolui": "git://github.com/GameWorkstore/protocolaudio.git#1.0.6"
+"com.gameworkstore.protocolaudio": "git://github.com/GameWorkstore/protocolaudio.git#1.0.6"
 "com.gameworkstore.patterns": "git://github.com/GameWorkstore/patterns.git#1.2.0"
 ```
 
@@ -15,7 +15,7 @@ And wait for unity to download and compile the package.
 
 you can upgrade your version by including the release version at end of the link:
 ```json
-"com.gameworkstore.protocolui": "git://github.com/GameWorkstore/protocolaudio.git#1.0.6"
+"com.gameworkstore.protocolaudio": "git://github.com/GameWorkstore/protocolaudio.git#1.0.6"
 ```
 
 # Contributions
