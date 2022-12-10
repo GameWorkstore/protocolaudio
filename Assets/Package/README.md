@@ -7,15 +7,15 @@ Use it your own risk!
 
 At package.json, add these lines of code:
 ```json
-"com.gameworkstore.protocolaudio": "https://github.com/GameWorkstore/protocolaudio.git#1.0.6"
-"com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git#1.2.0"
+"com.gameworkstore.protocolaudio": "https://github.com/GameWorkstore/protocolaudio.git#1.0.7"
+"com.gameworkstore.patterns": "https://github.com/GameWorkstore/patterns.git#1.3.0"
 ```
 
 And wait for unity to download and compile the package.
 
 you can upgrade your version by including the release version at end of the link:
 ```json
-"com.gameworkstore.protocolaudio": "https://github.com/GameWorkstore/protocolaudio.git#1.0.6"
+"com.gameworkstore.protocolaudio": "https://github.com/GameWorkstore/protocolaudio.git#1.0.7"
 ```
 
 # Contributions
