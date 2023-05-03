@@ -1,4 +1,6 @@
 using GameWorkstore.Patterns;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace GameWorkstore.ProtocolAudio
@@ -9,6 +11,9 @@ namespace GameWorkstore.ProtocolAudio
         public int Layer = BGMService.NotSharedLayer;
 
         private AudioSource _audioSource;
+        private AudioSource _introSource;
+        private float _introDuration;
+        private bool _hasPlayedIntro;
         private BGMService _bgmService;
         private int _nameHash;
         private bool _isPlaying;
@@ -27,16 +32,35 @@ namespace GameWorkstore.ProtocolAudio
 
         private void Awake()
         {
-            _audioSource = GetComponentInChildren<AudioSource>();
+            var audios = GetComponentsInChildren<AudioSource>();
+            _audioSource = audios.FirstOrDefault(IsNotStart);
             _nameHash = AudioName.Hash;
             _isPlaying = false;
             _originalVolume = _audioSource.volume;
             _audioSource.volume = 0;
 
+            _introSource = audios.FirstOrDefault(IsIntro);
+            if(_introSource != null)
+            {
+                _introSource.volume = 0;
+                _hasPlayedIntro = false;
+                _introDuration = _introSource.GetComponent<BGMIntro>().Duration;
+            }
+
             _bgmService = ServiceProvider.GetService<BGMService>();
             _bgmService.RegisterBGM(AudioName, Layer);
 
             ServiceProvider.GetService<EventService>().Update.Register(UpdatePack);
+        }
+
+        private bool IsIntro(AudioSource source)
+        {
+            return source.GetComponent<BGMIntro>() != null;
+        }
+
+        private bool IsNotStart(AudioSource source)
+        {
+            return !IsIntro(source);
         }
 
         private void OnDestroy()
@@ -63,6 +87,7 @@ namespace GameWorkstore.ProtocolAudio
                 {
                     _currentFadeCurve = null;
                     _audioSource.volume = isPlaying ? 1 : 0;
+                    CopyVolumeToIntro();
                 }
                 _time = Time.time;
                 _isPlaying = isPlaying;
@@ -73,26 +98,60 @@ namespace GameWorkstore.ProtocolAudio
             {
                 var delta = Time.time - _time;
                 _audioSource.volume = _originalVolume * _currentFadeVolume * _currentFadeCurve.Evaluate(delta);
-                if(delta > _currentFadeCurve.length)
+                CopyVolumeToIntro();
+                if (delta > _currentFadeCurve.length)
                 {
                     _currentFadeCurve = null;
                 }
             }
 
-            bool isNotPlaying = Mathf.Approximately(_audioSource.volume, 0);
+            bool isNotPlaying = _audioSource.volume < 0.02f;
             if (isNotPlaying)
             {
-                if (_audioSource.isPlaying)
+                if (_audioSource.isPlaying || _introSource != null && _introSource.isPlaying)
                 {
+                    if (_introSource != null)
+                    {
+                        _introSource.Stop();
+                        _introSource.time = 0;
+                        _introSource.volume = 0;
+                        _hasPlayedIntro = false;
+                    }
                     _audioSource.Stop();
+                    _audioSource.time = 0;
+                    _audioSource.volume = 0;
                 }
             }
             else
             {
                 if (!_audioSource.isPlaying)
                 {
-                    _audioSource.Play();
+                    if(_introSource != null)
+                    {
+                        if (!_hasPlayedIntro)
+                        {
+                            _introSource.Play();
+                            _hasPlayedIntro = true;
+                        }
+                        else if (_introSource.isPlaying && _introSource.time > _introDuration)
+                        {
+                            _introSource.Stop();
+                            _audioSource.Play();
+                        }
+                    }
+                    else
+                    {
+                        _audioSource.Play();
+                    }
                 }
+            }
+        }
+
+        private void CopyVolumeToIntro()
+        {
+            if (_introSource != null)
+            {
+                _introSource.volume = _audioSource.volume;
             }
         }
     }
