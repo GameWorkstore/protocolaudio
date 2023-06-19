@@ -30,6 +30,11 @@ namespace GameWorkstore.ProtocolAudio
         private AnimationCurve _currentFadeCurve;
         private float _currentFadeVolume;
 
+        [Space]
+#pragma warning disable IDE0052 // Remove unread private members
+        [SerializeField] private HelpBox _info = new HelpBox("BGMPacks supports intro music clips. To use it, add an additional object with 'AudioComponent' and 'BGMIntro' as children");
+#pragma warning restore IDE0052 // Remove unread private members
+
         private void Awake()
         {
             var audios = GetComponentsInChildren<AudioSource>();
