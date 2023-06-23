@@ -26,7 +26,7 @@ namespace GameWorkstore.ProtocolAudio
         {
         }
 
-        internal void Play(AudioName audioName)
+        public void Play(AudioName audioName)
         {
             _hash = audioName.Hash;
             var bgmRuntimeState = _states.FirstOrDefault(IsEqual);
@@ -41,7 +41,7 @@ namespace GameWorkstore.ProtocolAudio
             bgmRuntimeState.Active = true;
         }
 
-        internal void Stop(AudioName audioName)
+        public void Stop(AudioName audioName)
         {
             _hash = audioName.Hash;
             var bgmRuntimeState = _states.FirstOrDefault(IsEqual);
