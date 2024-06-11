@@ -1,14 +1,20 @@
 using GameWorkstore.Patterns;
-using System;
 using System.Linq;
 using UnityEngine;
 
 namespace GameWorkstore.ProtocolAudio
 {
+    public enum PlayBehaviour
+    {
+        Stop,
+        Pause
+    }
+
     public class BGMPack : MonoBehaviour
     {
         public AudioName AudioName;
         public int Layer = BGMService.NotSharedLayer;
+        public PlayBehaviour PlayBehaviour;
 
         private AudioSource _audioSource;
         private AudioSource _introSource;
@@ -45,7 +51,7 @@ namespace GameWorkstore.ProtocolAudio
             _audioSource.volume = 0;
 
             _introSource = audios.FirstOrDefault(IsIntro);
-            if(_introSource != null)
+            if (_introSource != null)
             {
                 _introSource.volume = 0;
                 _hasPlayedIntro = false;
@@ -99,7 +105,7 @@ namespace GameWorkstore.ProtocolAudio
             }
 
             // Fade pass
-            if(_currentFadeCurve != null)
+            if (_currentFadeCurve != null)
             {
                 var delta = Time.time - _time;
                 _audioSource.volume = _originalVolume * _currentFadeVolume * _currentFadeCurve.Evaluate(delta);
@@ -122,8 +128,17 @@ namespace GameWorkstore.ProtocolAudio
                         _introSource.volume = 0;
                         _hasPlayedIntro = false;
                     }
-                    _audioSource.Stop();
-                    _audioSource.time = 0;
+
+                    if (PlayBehaviour == PlayBehaviour.Stop)
+                    {
+                        _audioSource.Stop();
+                        _audioSource.time = 0;
+                    }
+                    else
+                    {
+                        _audioSource.Pause();
+                    }
+
                     _audioSource.volume = 0;
                 }
             }
@@ -131,7 +146,7 @@ namespace GameWorkstore.ProtocolAudio
             {
                 if (!_audioSource.isPlaying)
                 {
-                    if(_introSource != null)
+                    if (_introSource != null)
                     {
                         if (!_hasPlayedIntro)
                         {
